@@ -28,6 +28,7 @@ def print_menu
   puts "3. Save the list to students.csv"
   puts "4. Load the list from students.csv"
   puts "5. Print list of students with selected initial"
+  puts "6. Print students under 12 chars long"
   puts "9. Exit"
 end
 
@@ -49,10 +50,24 @@ def process(selection)
       load_students
     when "5"
       select_students_initial
+    when "6"
+      select_students_under_12chars
     when "9"
       exit # this will cause the program to terminate
     else
       puts "I don't know what you meant, try again"
+  end
+end
+
+def select_students_under_12chars
+  match = []
+  @students.each do |x|  
+    if x[:name].length < 12
+      match << x[:name]
+    end
+  end
+  match.each do |x|
+    puts x
   end
 end
 
@@ -61,7 +76,7 @@ def select_students_initial
   filtered = []
   puts "Enter a first initial you'd like to see"
   var = gets.chomp
-  @students.each do |x|
+  @students.each do |x|  
     if x[:name].chars.first == var
       puts "#{x[:name]} (#{x[:cohort]} cohort)"
     end 
