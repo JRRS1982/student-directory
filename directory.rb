@@ -8,7 +8,7 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    @students << {name: name, cohort: :november}
+    @students << {name: name, cohort: :november, country: :UK}
     puts "Now we have #{@students.count} students"
     # get another name from the user
     name = STDIN.gets.chomp
@@ -78,7 +78,7 @@ def select_students_initial
   var = gets.chomp
   @students.each do |x|  
     if x[:name].chars.first == var
-      puts "#{x[:name]} (#{x[:cohort]} cohort)"
+      puts "#{x[:name]} (#{x[:cohort]} cohort) (#{x[:country]} country)"
     end 
   end
 end
@@ -91,7 +91,7 @@ end
 def print_student_list
   @students.each_with_index do |student, index|
     index += 1
-    puts "#{index}. " "#{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{index}. " "#{student[:name]} (#{student[:cohort]} cohort) (#{student[:country]} country)"
   end
 end
 
@@ -102,8 +102,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-      @students << {name: name, cohort: cohort.to_sym}
+    name, cohort, country = line.chomp.split(',')
+      @students << {name: name, cohort: cohort.to_sym, country: country.to_sym}
   end
   file.close
 end
@@ -111,7 +111,7 @@ end
 def save_students
   file = File.open("students.csv", "w")
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
+    student_data = [student[:name], student[:cohort], country[:country]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
