@@ -89,11 +89,13 @@ def print_header
 end
 
 def print_student_list
-  @students.each_with_index do |student, index|
-    index += 1
-    puts "#{index}. " "#{student[:name]} (#{student[:cohort]} cohort) (#{student[:country]} country)"
+  count = 0
+  until count == @students.length 
+    puts "#{@students[count][:name]}"
+    count += 1
   end
 end
+
 
 def print_footer
   puts "Overall, we have #{@students.count} great students"
