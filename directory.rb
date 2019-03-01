@@ -1,20 +1,28 @@
 @students = [] # an empty array accessible to all methods
 
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  # get the first name
-  name = STDIN.gets.chomp
-  # while the name is not empty, repeat this code
-  while !name.empty? do
-    # add the student hash to the array
-    
-    @students << {name: name, cohort: :november, country: :UK}
-    puts "Now we have #{@students.count} students"
-    # get another name from the user
+  name = ''
+  loop do
+    puts "To finish, just hit return twice"
+    puts "Please enter the names of the students"
     name = STDIN.gets.chomp
-  end
-end
+      if name.empty?
+        name = "I have no name" 
+        break
+      end
+    puts "Which cohort is the student on?"
+    cohort = STDIN.gets.chomp
+      if cohort.empty?
+        cohort = "I have no cohort"
+      end
+      @students << {name: name, cohort: cohort.to_sym, country: :UK}
+        if @students.count == 1
+          puts "Now we have #{@students.count} student"
+        else @students.count == 1
+          puts "Now we have #{@students.count} students"
+        end
+      end
+    end
 
 def interactive_menu
   loop do
@@ -30,7 +38,18 @@ def print_menu
   puts "4. Load the list from students.csv".center(60, '_')
   puts "5. Print list of students with selected initial".center(60, '_')
   puts "6. Print students under 12 chars long".center(60, '_')
+  puts "7. Print students by cohort".center(60, '_')
   puts "9. Exit".center(60, '_')
+end
+
+def print_cohort
+  puts "Which cohort would you like to print?"
+  chosen_cohort = gets.chomp
+  @students.each do |student|
+    if student[:cohort] == chosen_cohort.to_sym
+      puts student[:name]
+    end
+  end
 end
 
 def show_students
@@ -53,6 +72,8 @@ def process(selection)
       select_students_initial
     when "6"
       select_students_under_12chars
+    when "7"
+      print_cohort
     when "9"
       exit # this will cause the program to terminate
     else
@@ -61,13 +82,13 @@ def process(selection)
 end
 
 def select_students_under_12chars
-  match = []
+  arr = []
   @students.each do |x|  
     if x[:name].length < 12
-      match << x[:name]
+      arr << x[:name]
     end
   end
-  match.each do |x|
+  arr.each do |x|
     puts x
   end
 end
@@ -92,7 +113,7 @@ end
 def print_student_list
   count = 0
   until count == @students.length 
-    puts "#{@students[count][:name]}"
+    puts "#{count + 1}. " + "#{@students[count][:name].capitalize}" + ": " + "#{@students[count][:cohort].capitalize}"
     count += 1
   end
 end
