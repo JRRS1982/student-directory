@@ -8,6 +8,7 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
+    
     @students << {name: name, cohort: :november, country: :UK}
     puts "Now we have #{@students.count} students"
     # get another name from the user
@@ -23,13 +24,13 @@ def interactive_menu
 end
 
 def print_menu
-  puts "1. Input the students"
-  puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
-  puts "5. Print list of students with selected initial"
-  puts "6. Print students under 12 chars long"
-  puts "9. Exit"
+  puts "1. Input the students".center(60, '-')
+  puts "2. Show the students".center(60, '_')
+  puts "3. Save the list to students.csv".center(60, '_')
+  puts "4. Load the list from students.csv".center(60, '_')
+  puts "5. Print list of students with selected initial".center(60, '_')
+  puts "6. Print students under 12 chars long".center(60, '_')
+  puts "9. Exit".center(60, '_')
 end
 
 def show_students
